@@ -1,2 +1,2 @@
-# flask-fuck-registration
+# flask-registration
 User Registration using Flask and MongoDB

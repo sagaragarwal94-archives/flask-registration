@@ -1,0 +1,26 @@
+ {% extends "base.html" %}
+ {% block title %}
+    <title>User Registration</title>
+    {% endblock %}
+
+ {% block css %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signin.css') }}"> 
+    {% endblock %}
+  
+{% block code %}
+    <div class="container">
+
+      <form class="form-signin" action="" method="POST">
+        <h2 class="form-signin-heading">SignUp</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputName" class="sr-only">Name</label>
+        <input type="text" name="inputName" class="form-control" placeholder="Name" required autofocus>
+        <label for="inputId" class="sr-only">College Id</label>
+        <input type="text" name="inputId" class="form-control" placeholder="College Id" required autofocus>
+        
+        <button class="btn btn-lg btn-warning btn-block" type="submit">Submit Request</button>
+      </form>
+
+    </div> 
+{% endblock %}
