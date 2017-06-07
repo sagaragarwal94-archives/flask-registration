@@ -1,26 +1,28 @@
- {% extends "base.html" %}
- {% block title %}
-    <title>User Registration</title>
-    {% endblock %}
+{% extends "base.html" %}
 
- {% block css %}
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signin.css') }}"> 
-    {% endblock %}
-  
-{% block code %}
-    <div class="container">
+{% block content %}
 
-      <form class="form-signin" action="" method="POST">
-        <h2 class="form-signin-heading">SignUp</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputName" class="sr-only">Name</label>
-        <input type="text" name="inputName" class="form-control" placeholder="Name" required autofocus>
-        <label for="inputId" class="sr-only">College Id</label>
-        <input type="text" name="inputId" class="form-control" placeholder="College Id" required autofocus>
-        
-        <button class="btn btn-lg btn-warning btn-block" type="submit">Submit Request</button>
-      </form>
+  <form method="POST" class="pure-form pure-form-aligned">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="name">Username</label>
+            <input id="name" name="username" type="text" placeholder="Username">
+            <span class="pure-form-message-inline">This is a required field.</span>
+        </div>
 
-    </div> 
+        <div class="pure-control-group">
+            <label for="password">Password</label>
+            <input id="password" name="inputPassword" type="password" placeholder="Password" required="">
+        </div>
+
+        <div class="pure-control-group">
+            <label for="email">Email Address</label>
+            <input id="email" name="inputEmail" type="email" placeholder="Email Address" required="">
+        </div>
+
+            <button type="submit" class="pure-button pure-button-primary">Register</button>
+        </div>
+    </fieldset>
+</form>
+<p>Have an account. <a href="{{ url_for('login')}}">Login</a>. </p>
 {% endblock %}
