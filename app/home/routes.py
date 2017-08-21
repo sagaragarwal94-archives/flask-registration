@@ -9,13 +9,14 @@ def start():
     return render_template('index.html')
 
 
-@home.route('/sign')
+@home.route('/sign', methods=['POST', 'GET'])
 def sign():
     if request.method == 'POST':
         email = request.form['inputEmail']
         password = request.form['inputPassword']
-        if mongo.db.users.find_one({'email': email}):
-            if password == bcrypt.check_password_hash(password):
+        user = mongo.db.users.find_one({'email': email})
+        if user:
+            if bcrypt.check_password_hash(user['password'], password):
                 mongo.db.users.update({'email': email}, {'$set': {'authenticated': True}})
                 login_user(user=email)
                 return redirect(url_for('user.profile'))
