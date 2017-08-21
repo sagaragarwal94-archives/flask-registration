@@ -2,6 +2,15 @@ from flask import render_template, request, redirect, url_for
 from flask_login import login_user
 from app.home import home
 from app import mongo, bcrypt, login_manager
+from app.home.user_loging_manager import User
+
+
+@login_manager.user_loader
+def load_user(email):
+    users = mongo.db.users.find_one({'email': email})
+    if not users:
+        return None
+    return User(users['_id'])
 
 
 @home.route('/')
@@ -16,9 +25,9 @@ def sign():
         password = request.form['inputPassword']
         user = mongo.db.users.find_one({'email': email})
         if user:
-            if bcrypt.check_password_hash(user['password'], password):
-                mongo.db.users.update({'email': email}, {'$set': {'authenticated': True}})
-                login_user(user=email)
+            if User.validate_login(user['password'], password):
+                user_obj = User(user['_id'])
+                login_user(str(user_obj))
                 return redirect(url_for('user.profile'))
             else:
                 print('Incorrect Credentials')

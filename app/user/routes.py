@@ -1,7 +1,6 @@
 from flask import render_template, redirect, url_for
-from flask_login import current_user, logout_user, login_required
+from flask_login import logout_user, login_required
 from app.user import user
-from app import mongo
 
 
 @user.route('/profile')
@@ -13,6 +12,5 @@ def profile():
 @user.route('/logout')
 @login_required
 def logout():
-    mongo.db.users.update({'email': current_user.email}, {'$set': {'authenticated': False}})
-    logout_user(current_user)
+    logout_user()
     return redirect(url_for('home.start'))
