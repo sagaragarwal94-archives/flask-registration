@@ -1,9 +1,11 @@
 from flask import Flask
+from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
 app.config.from_pyfile('config.py')
 
+mongo =PyMongo(app)
 
 from app.home import home as home_blueprint
 app.register_blueprint(home_blueprint)
