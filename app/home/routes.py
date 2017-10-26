@@ -10,7 +10,7 @@ def load_user(email):
     users = mongo.db.users.find_one({'email': email})
     if not users:
         return None
-    return User(users['_id'])
+    return User(users['email'])
 
 
 @home.route('/')
@@ -26,8 +26,8 @@ def sign():
         user = mongo.db.users.find_one({'email': email})
         if user:
             if User.validate_login(user['password'], password):
-                user_obj = User(user['_id'])
-                login_user(str(user_obj))
+                user_obj = User(email)
+                login_user(user_obj)
                 return redirect(url_for('user.profile'))
             else:
                 print('Incorrect Credentials')
